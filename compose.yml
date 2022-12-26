@@ -1,0 +1,18 @@
+services:
+  minecraft:
+    container_name: minecraft
+    build:
+      context: .
+      args:
+        MINECRAFT_UID: "${MINECRAFT_UID:-1000}"
+        MINECRAFT_GID: "${MINECRAFT_GID:-1000}"
+    environment:
+      EULA: "${EULA:-false}"
+      MEMORY: "${MEMORY:-2G}"
+    volumes:
+      - type: bind
+        source: "${DATA_DIR:-./data}"
+        target: /data
+    ports:
+      - "0.0.0.0:25565:25565"
+      - "0.0.0.0:19132:19132/udp"
