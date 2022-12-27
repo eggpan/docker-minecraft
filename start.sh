@@ -22,7 +22,11 @@ if [ -n "$EULA" ]; then
   echo "eula=${EULA}" > /data/eula.txt
 fi
 
-screen -d -m -S minecraft java -jar -Xms2G -Xmx2G /usr/local/bin/paper.jar nogui
+if [ -z "$MEMORY" ]; then
+  MEMORY=2G
+fi
+
+screen -d -m -S minecraft java -jar -Xms${MEMORY} -Xmx${MEMORY} /usr/local/bin/paper.jar nogui
 
 terminate() {
   JAVA_PID=$(pgrep java)
